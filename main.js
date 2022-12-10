@@ -184,12 +184,12 @@ function buildWall(
         material: 0, 
         extrudeMaterial: 1, 
         steps: 2};
-    let inneergeometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
+    let innergeometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
     let outergeometry = new THREE.ExtrudeGeometry( outershape, extrudeSettings );
     let mat1 = new THREE.MeshBasicMaterial({color: color, side: THREE.DoubleSide});
     let mat2 = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide});
     let mats = [mat1, mat2];
-    let innermesh = new THREE.Mesh(inneergeometry, mat1); 
+    let innermesh = new THREE.Mesh(innergeometry, mat1); 
     innermesh.position.copy(pos);
     innermesh.rotation.x = -0.5 * Math.PI;    
     let outermesh = new THREE.Mesh(outergeometry, mat2); 
