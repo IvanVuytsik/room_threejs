@@ -21,7 +21,7 @@ camera.position.set(-10, 30, 30);
 const orbit = new OrbitControls(camera, renderer.domElement); 
 orbit.update();
 //========================props==================
-const axesHelper = new THREE.AxesHelper(5); 
+const axesHelper = new THREE.AxesHelper(20); 
 scene.add(axesHelper);
 const gridHelper = new THREE.GridHelper(10);
 scene.add(gridHelper); 
@@ -66,7 +66,7 @@ const living = getCoords(1);
 const closed = getCoords(2);
 const kitchen = getCoords(3); 
 let rooms = [closed, kitchen, bedroom, living]
-
+//  
 //===========================debug===================
 //console.log(geometryData) 
 //console.log(texturesData) 
@@ -120,37 +120,44 @@ function wallCoords(room) {
     } 
     return set
 }
-//console.log(coordSet)
+
 
 //==========================init==============================
 function initContruction(room, size, wall_height){
     let coordSet = wallCoords(room);
+    //console.log(coordSet)
     for(let wall of coordSet){
         let color;
         let texture;
+        let inner_size = new THREE.Vector2(0, 0);
         switch (room) {
             case kitchen: 
                 color = "#FFE7CC"; 
                 texture = texturesLoaded[0];
+                inner_size = [-1, 6];
                 break;
             case bedroom: 
                 color = "#C7BCA1";
                 texture = texturesLoaded[1]; 
+                inner_size = [1, -1]
                 break;
             case living: 
                 color = "#EDDBC0"; 
                 texture = texturesLoaded[2];
+                inner_size = [3, 3];
                 break;  
             case closed: 
                 color = "#FFB9B9";
                 texture = texturesLoaded[3]; 
+                inner_size = [3, -1];
                 break; 
             default: 
-                color = "#DBA39A";   
+                color = "#DBA39A";  
+                inner_size = [0, 0];
                 texture = undefined;
         }
         
-        buildWall(wall[0], wall[1], size, wall_height, color, texture);   
+        buildWall(wall[0], wall[1], size, wall_height, color, texture, inner_size);   
     }
 }
  
@@ -159,7 +166,7 @@ function initContruction(room, size, wall_height){
 function buildWall(
     [wallStarts_x, wallStarts_y], 
     [wallEnds_x, wallEnds_y], 
-    size=0.3, height=5, color="#DBA39A", texture){
+    size=0.3, height=5, color="#DBA39A", texture, inner_size){
  
     //==================================================================
     let shape = new THREE.Shape();
@@ -168,8 +175,8 @@ function buildWall(
     shape.moveTo(wallStarts_x * size, wallStarts_y * size);
     shape.lineTo(wallEnds_x * size, wallEnds_y * size);
     
-    outershape.moveTo(wallStarts_x * (size - 0.0001), wallStarts_y * (size - 0.0001));
-    outershape.lineTo(wallEnds_x * (size - 0.0001), wallEnds_y * (size - 0.0001)); 
+    outershape.moveTo((wallStarts_x - inner_size[0]) * (size - 0.0003), (wallStarts_y + inner_size[1])  * (size - 0.0003));
+    outershape.lineTo((wallEnds_x - inner_size[0]) * (size - 0.0003), (wallEnds_y + inner_size[1]) * (size - 0.0003)); 
     pos.x = 0
     pos.y = 0.2
     pos.z = 0 
