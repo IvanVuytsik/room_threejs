@@ -144,7 +144,7 @@ function initContruction(room, size, wall_height){
             case living: 
                 color = "#EDDBC0"; 
                 texture = texturesLoaded[2];
-                inner_size = [3, 3];
+                inner_size = [2, 2];
                 break;  
             case closed: 
                 color = "#FFB9B9";
