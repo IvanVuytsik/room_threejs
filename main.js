@@ -45,7 +45,7 @@ function getTextures() {
         textures.repeat.set(0.1, 0.15); 
         textures.offset.y = (0.25);
         textures.rotation = - Math.PI;
-        //texturesUrls.push({room: room_7type, url: room_url})
+        //texturesUrls.push({room: room_type, url: room_url})
         texturesUrls.push(textures);
         }
   return texturesUrls
