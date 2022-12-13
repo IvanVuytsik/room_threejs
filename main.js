@@ -31,20 +31,21 @@ scene.add(ambientLight);
 //==================textures Loader==============
 const textureLoader = new THREE.TextureLoader(); 
 let texturesLoaded = getTextures();
-//console.log(texturesUrls)
 //=====================textures=========================
 function getTextures() {  
     let texturesUrls = [];
+    //console.log(texturesUrls)
     let textures = texturesData["tour"]["rooms"];
 
-    for (const [key, value] of Object.entries(textures)) { 
+    for (let [key, value] of Object.entries(textures)) { 
         //let room_type = value["name"].toLowerCase();
         let textures = textureLoader.load(value["url"]); 
         textures.wrapS = THREE.RepeatWrapping;
         textures.wrapT = THREE.RepeatWrapping; 
         textures.repeat.set(0.1, 0.15); 
-        textures.offset.y = (-0.25);  
-        //texturesUrls.push({room: room_type, url: room_url})
+        textures.offset.y = (0.25);
+        textures.rotation = - Math.PI;
+        //texturesUrls.push({room: room_7type, url: room_url})
         texturesUrls.push(textures);
         }
   return texturesUrls
